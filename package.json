@@ -1,0 +1,21 @@
+{
+  "name": "solidity",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.1",
+    "@nomiclabs/hardhat-etherscan": "^2.1.2",
+    "@nomiclabs/hardhat-waffle": "^2.0.1",
+    "@openzeppelin/contracts": "^4.0.0",
+    "base64-sol": "^1.0.1",
+    "chai": "^4.3.0",
+    "ethereum-waffle": "^3.2.2",
+    "ethers": "^5.0.29",
+    "hardhat": "^2.4.1",
+    "hardhat-gas-reporter": "^1.0.4"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0"
+  }
+}
