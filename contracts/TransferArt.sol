@@ -46,7 +46,7 @@ contract TransferArt is ERC721Enumerable {
         uint256 tokenId
     ) public virtual override {
         super.transferFrom(from, to, tokenId);
-         if(copyOf[tokenId] == 0 && transferHistory[tokenId].length < 16) {
+         if(transferHistory[tokenId].length < 16) {
             transferHistory[tokenId].push(to);
             if(from != address(0)){
                 _mint(from, ++_nonce);
