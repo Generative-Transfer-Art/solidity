@@ -2,8 +2,7 @@ pragma solidity 0.8.6;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import 'base64-sol/base64.sol';
-import './UintStrings.sol';
-import "hardhat/console.sol";
+import '../libraries/UintStrings.sol';
 
 contract TransferArt is ERC721Enumerable {
     uint128 private _startMintFeeWei = 1e17;
@@ -48,24 +47,15 @@ contract TransferArt is ERC721Enumerable {
         super.transferFrom(from, to, tokenId);
          if(transferHistory[tokenId].length < 16) {
             transferHistory[tokenId].push(to);
-            if(from != address(0)){
+            // NOTE: code has been updated to fix copy issue
+            // original was just if(from != address(0)) and
+            // wrapper tests were written for that
+            if(from != address(0) && copyOf[tokenId] == 0){
                 _mint(from, ++_nonce);
                 copyOf[_nonce] = tokenId;
             }
         }
     }
-
-    // function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal virtual override {
-    //     super._beforeTokenTransfer(from, to, tokenId);
-
-    //     if(transferHistory[tokenId].length < 16) {
-    //         transferHistory[tokenId].push(to);
-    //         if(from != address(0)){
-    //             _mint(from, ++_nonce);
-    //             copyOf[_nonce] = tokenId;
-    //         }
-    //     }
-    // }
 
     function tokenURI(uint256 tokenId) public override view returns(string memory) {
         uint256 original = tokenId;

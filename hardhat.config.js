@@ -31,8 +31,8 @@ module.exports = {
       accounts: [`0x${RINKEBY_PRIVATE_KEY}`],
     },
     mainnet: {
-      url: `https://eth-mainnet.alchemyapi.io/v2/${ALCHEMY_MAINNET_API_KEY}`,
-      accounts: [`0x${MAINNET_PRIVATE_KEY}`],
+      url: 'https://mainnet.infura.io/v3/6882a706a7c64a2492615e41d5e1648d',
+      accounts: [`0x${MAINNET_PRIVATE_KEY}`]
     },
  },
  etherscan: {
