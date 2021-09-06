@@ -3,7 +3,7 @@ const { waffle } = require("hardhat");
 const provider = waffle.provider;
 const { MerkleTree } = require('./helpers/merkleTree.js');
 
-describe("Transfer Art contract", function () {
+describe("Animal Coloring Book contract", function () {
     let merkleProof
 
     beforeEach(async function () {
