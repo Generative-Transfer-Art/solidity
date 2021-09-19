@@ -66,9 +66,40 @@ describe("Animal Coloring Book contract", function () {
         await ColoringBookEraser.deployed();
         
         await AnimalColoringBook.setEraser(ColoringBookEraser.address);
+
+        AnimalCombineContract = await ethers.getContractFactory("AnimalColoringBookAddressCollection");
+        AnimalCombine = await AnimalCombineContract.deploy(addr1.address, AnimalColoringBook.address, AnimalColoringBookDescriptors.address)
+        await AnimalCombine.deployed(); 
       });
     
-
+      describe("address collection tokenURI", function() {
+        it("retrieves successfully", async function(){
+            await AnimalCombine.mint(addr1.address)
+            await AnimalColoringBook.mint(addr1.address, true, {value: Math.pow(10, 17) * 3 + ""})
+            await AnimalColoringBook.mint(addr1.address, true, {value: Math.pow(10, 17) * 3 + ""})
+            await AnimalColoringBook.mint(addr1.address, true, {value: Math.pow(10, 17) * 3 + ""})
+            await AnimalColoringBook.mint(addr1.address, true, {value: Math.pow(10, 17) * 3 + ""})
+            await AnimalColoringBook.mint(addr1.address, true, {value: Math.pow(10, 17) * 3 + ""})
+            await AnimalColoringBook.mint(addr1.address, true, {value: Math.pow(10, 17) * 3 + ""})
+            // await AnimalColoringBook.mint(addr1.address, true, {value: Math.pow(10, 17) * 3 + ""})
+            var counter = 1
+            while(counter < 7){
+                var i = 0
+                var holder = addr1
+                while(i < 4){
+                    var next = addrs[Math.floor(Math.random()*addrs.length)]
+                    await AnimalColoringBook.connect(holder).transferFrom(holder.address, next.address, counter + "");
+                    holder = next
+                    i++
+                }
+                await AnimalColoringBook.connect(holder).transferFrom(holder.address, addr1.address, counter + "");
+                counter++
+            }
+            await AnimalColoringBook.connect(addr1).transferFrom(addr1.address, addr2.address, "1");
+            const image = await AnimalCombine.connect(addr1).tokenURI("1")
+            console.log(image)
+        })
+    })
     describe("coloring book tokenURI", function() {
         it("retrieves successfully", async function(){
             await AnimalColoringBook.mint(addr1.address, true, {value: Math.pow(10, 17) * 3 + ""})
