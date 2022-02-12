@@ -51,11 +51,14 @@ describe("Animal Coloring Book contract", function () {
         AnimalColoringBookDescriptors = await AnimalColoringBookDescriptorsContract.deploy(AnimalDescriptors.address)
         await AnimalColoringBookDescriptors.deployed();  
 
-        const elements = [addr1.address, addr2.address];
+        const elements = ['0x48c89D77ae34Ae475e4523b25aB01e363dce5A78', '0xbc3ed6B537f2980e66f396Fe14210A56ba3f72C4'];
         const merkleTree = new MerkleTree(elements);
+        console.log(elements)
 
         const root = merkleTree.getHexRoot();
+        console.log(root)
         merkleProof = merkleTree.getHexProof(elements[0]);
+        console.log(merkleProof)
 
         AnimalColoringBookContract = await ethers.getContractFactory("AnimalColoringBook");
         AnimalColoringBook = await AnimalColoringBookContract.connect(addr1).deploy(addr1.address, root, AnimalColoringBookDescriptors.address, TransferArt.address, TransferArtWrapper.address);

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.6;
+pragma solidity ^0.8.6;
 import './Eyes.sol';
 import '../libraries/UintStrings.sol';
 import './interfaces/IAnimalSVG.sol';
